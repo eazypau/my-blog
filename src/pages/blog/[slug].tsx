@@ -10,6 +10,8 @@ import {
   getBlogPageBySlug,
 } from "@/lib/notion";
 import { BlockObjectResponse } from "@notionhq/client/build/src/api-endpoints";
+// utils
+import { formatDate } from "@/utils/dateFormatter";
 
 export const getStaticPaths = async () => {
   const database = await getAllPublished();
@@ -56,27 +58,26 @@ export default function Slug({
 }) {
   if (page && blocks) {
     return (
-      <div>
-        <div className="blog-wrapper">
-          <nav>
-            <Link
-              href="/"
-              className="p-2 bg-gradient-to-br from-white to-slate-100 rounded-md shadow"
-            >
-              <HomeIcon width="28" height="28" />
-            </Link>
-          </nav>
-          <section className="blog-details">
-            <h1 className="blog-heading-1">{page.title}</h1>
-            <p className="description">{page.description}</p>
-            <p className="author-date-container">
-              <span>by Po Yi Zhi</span> | <span>Posted on {page.date}</span>
-            </p>
-          </section>
-          <main className="block-content">
-            {blocks.map((block) => renderBlock({ block }))}
-          </main>
-        </div>
+      <div className="blog-wrapper">
+        <nav>
+          <Link
+            href="/"
+            className="p-2 bg-gradient-to-br from-white to-slate-100 rounded-md shadow"
+          >
+            <HomeIcon width="28" height="28" />
+          </Link>
+        </nav>
+        <article className="blog-details">
+          <h1 className="blog-heading-1">{page.title}</h1>
+          <p className="description">{page.description}</p>
+          <p className="author-date-container">
+            <span>by Po Yi Zhi</span> |{" "}
+            <span>Posted on {formatDate(page.date)}</span>
+          </p>
+        </article>
+        <article className="block-content">
+          {blocks.map((block) => renderBlock({ block }))}
+        </article>
       </div>
     );
   }
