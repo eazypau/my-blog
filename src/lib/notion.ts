@@ -52,9 +52,7 @@ export const getAllPublished = async () => {
       ],
     });
 
-    const data = response.results;
-
-    return data.map((item) => getBlogDetails(item));
+    return response.results.map((item) => getBlogDetails(item));
   } catch (error: any) {
     console.error(error);
     const errText = error.toString();
@@ -133,4 +131,43 @@ export const getBlogPageBySlug = async (slug: string): Promise<Blog | {}> => {
   }
 
   return {};
+};
+
+export const getBlogsByTag = async (tag?: string) => {
+  try {
+    if (!tag) {
+      return [];
+    }
+
+    const response = await notion.databases.query({
+      database_id: process.env.NOTION_DATABASE_ID,
+      filter: {
+        property: "Tags",
+        multi_select: {
+          contains: tag,
+        },
+        and: [
+          {
+            property: "Status",
+            status: {
+              equals: "Published",
+            },
+          },
+        ],
+      },
+      sorts: [
+        {
+          property: "Date",
+          direction: "descending",
+        },
+      ],
+    });
+
+    return response.results.map((item) => getBlogDetails(item));
+  } catch (error: any) {
+    console.error(error);
+    const errText = error.toString();
+    console.log("error message: ", errText);
+    return [];
+  }
 };
