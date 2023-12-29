@@ -10,20 +10,34 @@ export default function Text({ values }: { values: any }) {
   return textBlocks.map((block) => {
     const { bold, code, color, italic, strikethrough, underline } =
       block.annotations;
-    return (
-      <span
-        key={block.plain_text}
-        className={[
-          bold ? "font-bold" : "",
-          code ? "text-red-500 bg-gray-200" : "text-gray-700",
-          italic ? "italic" : "",
-          strikethrough ? "line-through" : "",
-          underline ? "underline" : "",
-        ].join(" ")}
-        style={color !== "default" ? { color } : {}}
-      >
-        {block.plain_text}
-      </span>
-    );
+
+    if (!block.href) {
+      return (
+        <span
+          key={block.plain_text}
+          className={[
+            bold ? "font-bold" : "",
+            code ? "text-red-500 bg-gray-200" : "text-gray-700",
+            italic ? "italic" : "",
+            strikethrough ? "line-through" : "",
+            underline ? "underline" : "",
+          ].join(" ")}
+          style={color !== "default" ? { color } : {}}
+        >
+          {block.plain_text}
+        </span>
+      );
+    } else {
+      return (
+        <a
+          key={block.plain_text}
+          href={block.href}
+          rel="noreferrer noopener"
+          className="resource-link"
+        >
+          {block.href}
+        </a>
+      );
+    }
   });
 }
