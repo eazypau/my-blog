@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import Post from "@/components/Post";
 import { HomeIcon } from "@/components/icons/Home";
 // lib
-import { Blog, getAllPublished, getBlogsByTag } from "@/lib/notion";
+import { Blog, getBlogsByTag } from "@/lib/notion";
 // utils
 import { TAG_LIST } from "@/utils/const";
 
