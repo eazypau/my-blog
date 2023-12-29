@@ -19,9 +19,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function Home({ posts }: { posts: Blog[] }) {
   return (
-    <main
-      className={`p-5 md:p-10 ${inter.className} mx-auto md:w-3/4 xl:w-1/3`}
-    >
+    <main className={`blog-page-container ${inter.className}`}>
       <h1 className="home-title">Blog Overview</h1>
       <p className="mb-7">
         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quae tenetur

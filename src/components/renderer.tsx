@@ -76,9 +76,15 @@ export default function renderBlock({ block }: { block: any }) {
       return <hr key={id} />;
     case "code":
       return (
-        <pre className="code-block">
-          <code key={id}>{value.rich_text[0].plain_text}</code>
+        <pre key={id} className="code-block">
+          <code>{value.rich_text[0].plain_text}</code>
         </pre>
+      );
+    case "bookmark":
+      return (
+        <a href={value.url} rel="noreferrer noopener" className="resource-link">
+          {value.url}
+        </a>
       );
     case "image":
       const src =
