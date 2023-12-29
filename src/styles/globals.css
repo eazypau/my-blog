@@ -2,26 +2,111 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+/* global */
+h1,
+h2,
+h3 {
+  @apply font-bold;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+img {
+  @apply rounded-md;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+a {
+  @apply text-sm text-gray-400 hover:text-blue-600 transition-colors duration-300 ease-out;
+}
+
+/* Home page */
+.home-title {
+  @apply text-4xl font-bold mb-5;
+}
+
+.blog-post-list {
+  @apply flex flex-col items-stretch border-t border-gray-300;
+}
+
+.blog-post-list li {
+  @apply py-3 px-1 border-b border-gray-300;
+}
+
+.blog-post-list .blog-title {
+  @apply mb-2 text-xl font-medium;
+}
+
+.blog-post-list .description {
+  @apply mb-5 text-gray-700;
+}
+
+.blog-post-list .tags {
+  @apply mb-2;
+}
+
+.tags span {
+  @apply py-1 px-2 bg-cyan-200 text-sm rounded-md;
+}
+
+.blog-post-list .date-link-container {
+  @apply flex justify-between items-end;
+}
+
+.date-link-container p {
+  @apply text-sm text-gray-500 font-light;
+}
+
+.read-more-button {
+  @apply flex items-center gap-1;
+}
+
+/* Blog page style */
+.blog-wrapper {
+  @apply mx-auto md:w-3/4 xl:w-1/2 py-5 md:py-10 px-3 md:px-7 bg-white;
+}
+
+.blog-wrapper nav {
+  @apply flex mb-3;
+}
+
+.blog-details {
+  @apply mb-7;
+}
+
+.blog-details .description {
+  @apply text-gray-500 my-2 md:my-4;
+}
+
+.blog-details .author-date-container {
+  @apply flex items-center gap-2 text-sm;
+}
+
+.author-date-container span:last-child {
+  @apply text-gray-500;
+}
+
+.block-content {
+  @apply flex flex-col items-stretch gap-5 lg:text-lg;
+}
+
+.block-content p {
+  @apply md:leading-7;
+}
+
+/* .block-style {
+  @apply py-3 px-5 bg-slate-50 rounded shadow;
+} */
+
+.blog-heading-1 {
+  @apply text-4xl md:text-5xl;
+}
+
+.blog-heading-2 {
+  @apply text-3xl;
+}
+
+.blog-heading-3 {
+  @apply text-xl;
+}
+
+.code-block {
+  @apply py-3 px-4 bg-slate-100 overflow-x-auto;
 }

@@ -1,0 +1,85 @@
+import Link from "next/link";
+// components
+import renderBlock from "@/components/renderer";
+import { HomeIcon } from "@/components/icons/Home";
+// lib
+import {
+  Blog,
+  getAllPublished,
+  getPageBlocks,
+  getBlogPageBySlug,
+} from "@/lib/notion";
+import { BlockObjectResponse } from "@notionhq/client/build/src/api-endpoints";
+
+export const getStaticPaths = async () => {
+  const database = await getAllPublished();
+  const paths = database.map((post) => {
+    return {
+      params: {
+        id: post.id,
+        slug: post.slug,
+      },
+    };
+  });
+
+  return {
+    paths,
+    fallback: true,
+  };
+};
+
+export const getStaticProps = async ({
+  params,
+}: {
+  params: { slug: string };
+}) => {
+  const { slug } = params;
+  const page = (await getBlogPageBySlug(slug)) as Blog;
+  const blocks = await getPageBlocks(
+    Object.keys(page).length > 0 && page.hasOwnProperty("id") ? page.id : ""
+  );
+
+  return {
+    props: {
+      page,
+      blocks,
+    },
+  };
+};
+
+export default function Slug({
+  page,
+  blocks,
+}: {
+  page: Blog;
+  blocks: BlockObjectResponse[];
+}) {
+  if (page && blocks) {
+    return (
+      <div>
+        <div className="blog-wrapper">
+          <nav>
+            <Link
+              href="/"
+              className="p-2 bg-gradient-to-br from-white to-slate-100 rounded-md shadow"
+            >
+              <HomeIcon width="28" height="28" />
+            </Link>
+          </nav>
+          <section className="blog-details">
+            <h1 className="blog-heading-1">{page.title}</h1>
+            <p className="description">{page.description}</p>
+            <p className="author-date-container">
+              <span>by Po Yi Zhi</span> | <span>Posted on {page.date}</span>
+            </p>
+          </section>
+          <main className="block-content">
+            {blocks.map((block) => renderBlock({ block }))}
+          </main>
+        </div>
+      </div>
+    );
+  }
+
+  return <div>Oops, it seems this blog post does not exist!</div>;
+}
