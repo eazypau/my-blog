@@ -1,7 +1,10 @@
 import Link from "next/link";
+// components
+import RightArrow from "./icons/RightArrow";
 // lib
 import { Blog } from "@/lib/notion";
-import RightArrow from "./icons/RightArrow";
+// utils
+import { formatDate } from "@/utils/dateFormatter";
 
 export default function Post({ posts }: { posts: Blog[] }) {
   const Post = ({ post }: { post: Blog }) => {
@@ -11,11 +14,17 @@ export default function Post({ posts }: { posts: Blog[] }) {
         <p className="description">{post.description}</p>
         <div className="tags">
           {post.tags.map((tag) => (
-            <span key={tag}>#{tag}</span>
+            <Link
+              key={`${post.id}_${tag}`}
+              href={`/tags/${tag}`}
+              className="tag"
+            >
+              <span key={tag}>#{tag}</span>
+            </Link>
           ))}
         </div>
         <div className="date-link-container">
-          <p>{post.date}</p>
+          <p>{formatDate(post.date)}</p>
           <Link href={`/blog/${post.slug}`} className="read-more-button">
             Read more <RightArrow width="20" height="20" />
           </Link>
