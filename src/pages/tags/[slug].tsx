@@ -33,7 +33,7 @@ export const getStaticProps = async ({
 
   return {
     props: {
-      posts,
+      posts: posts ? posts : [],
     },
   };
 };
@@ -54,10 +54,10 @@ export default function Tag({ posts }: { posts: Blog[] }) {
       </nav>
       <h1 className="home-title">#{slug}</h1>
       <p className="mb-7">It is what it is all about</p>
-      {posts && posts.length === 0 ? (
-        "There is no blog post related to the selected tag."
+      {posts && posts.length > 0 ? (
+        <Post posts={posts} showTags={false} />
       ) : (
-        <Post posts={posts} />
+        "There is no blog post related to the selected tag."
       )}
     </main>
   );

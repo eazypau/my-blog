@@ -27,10 +27,10 @@ export default function Home({ posts }: { posts: Blog[] }) {
         repudiandae soluta, distinctio maxime pariatur atque sapiente libero.
         Omnis, consequuntur aut?
       </p>
-      {posts && posts.length === 0 ? (
-        "There is no blog post."
-      ) : (
+      {posts && posts.length > 0 ? (
         <Post posts={posts} />
+      ) : (
+        "There is no blog post."
       )}
     </main>
   );

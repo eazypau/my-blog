@@ -6,23 +6,31 @@ import { Blog } from "@/lib/notion";
 // utils
 import { formatDate } from "@/utils/dateFormatter";
 
-export default function Post({ posts }: { posts: Blog[] }) {
+export default function Post({
+  posts,
+  showTags = true,
+}: {
+  posts: Blog[];
+  showTags?: Boolean;
+}) {
   const Post = ({ post }: { post: Blog }) => {
     return (
-      <li>
+      <li key={post.id}>
         <p className="blog-title">{post.title}</p>
         <p className="description">{post.description}</p>
-        <div className="tags">
-          {post.tags.map((tag) => (
-            <Link
-              key={`${post.id}_${tag}`}
-              href={`/tags/${tag}`}
-              className="tag"
-            >
-              <span key={tag}>#{tag}</span>
-            </Link>
-          ))}
-        </div>
+        {showTags ? (
+          <div className="tags">
+            {post.tags.map((tag) => (
+              <Link
+                key={`${post.id}_${tag}`}
+                href={`/tags/${tag}`}
+                className="tag"
+              >
+                <span key={tag}>#{tag}</span>
+              </Link>
+            ))}
+          </div>
+        ) : null}
         <div className="date-link-container">
           <p>{formatDate(post.date)}</p>
           <Link href={`/blog/${post.slug}`} className="read-more-button">

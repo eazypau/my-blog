@@ -110,7 +110,8 @@ export const getPageBlocks = async (pageId: string) => {
 
     // https://stackoverflow.com/questions/33884033/how-can-i-remove-empty-object-in-from-an-array-in-js
     return results.filter((value) => Object.keys(value).length !== 0);
-  } else return [];
+  }
+  return [];
 };
 
 export const getBlogPageBySlug = async (slug: string): Promise<Blog | {}> => {
