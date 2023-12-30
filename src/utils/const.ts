@@ -1,1 +1,1 @@
-export const TAG_LIST = ["test", "tech"];
+export const TAG_LIST = ["test"];
