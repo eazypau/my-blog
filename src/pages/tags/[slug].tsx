@@ -42,8 +42,10 @@ export const getStaticProps = async ({
 export default function Tag({ posts }: { posts: Blog[] }) {
   const router = useRouter();
   const slug = router.query.slug as string;
-  const fullTitle = TAGS_DESCRIPTION[slug].fullName;
-  const description = TAGS_DESCRIPTION[slug].description;
+  const fullTitle = TAGS_DESCRIPTION[slug]?.fullName || "Tag name";
+  const description =
+    TAGS_DESCRIPTION[slug]?.description ||
+    "There is no short description for the above tag.";
 
   return (
     <main className="blog-page-container">
@@ -66,7 +68,7 @@ export default function Tag({ posts }: { posts: Blog[] }) {
           <HomeIcon width="28" height="28" />
         </Link>
       </nav>
-      <h1 className="home-title">#{slug}</h1>
+      <h1 className="home-title">{fullTitle}</h1>
       <p className="font-raleway mb-7">{description}</p>
       {posts && posts.length > 0 ? (
         <Post posts={posts} showTags={false} />
