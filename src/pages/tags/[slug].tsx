@@ -6,7 +6,8 @@ import { HomeIcon } from "@/components/icons/Home";
 // lib
 import { Blog, getBlogsByTag } from "@/lib/notion";
 // utils
-import { TAG_LIST } from "@/utils/const";
+import { TAGS_DESCRIPTION, TAG_LIST } from "@/utils/const";
+import Head from "next/head";
 
 export const getStaticPaths = async () => {
   const paths = TAG_LIST.map((item) => {
@@ -41,9 +42,22 @@ export const getStaticProps = async ({
 export default function Tag({ posts }: { posts: Blog[] }) {
   const router = useRouter();
   const slug = router.query.slug as string;
+  const fullTitle = TAGS_DESCRIPTION[slug].fullName;
+  const description = TAGS_DESCRIPTION[slug].description;
 
   return (
     <main className="blog-page-container">
+      <Head>
+        <title>#{fullTitle} | Eazypau</title>
+        <meta name="description" content={description} />
+        <meta
+          name="og:site"
+          content={`https://my-blog-eazypau.vercel.app/tags/${slug}`}
+        />
+        <meta name="og:site_name" content={`#${fullTitle} | Eazypau`} />
+        <meta name="og:title" content={`#${fullTitle} | Eazypau`} />
+        <meta name="og:description" content={description} />
+      </Head>
       <nav>
         <Link
           href="/"
@@ -53,7 +67,7 @@ export default function Tag({ posts }: { posts: Blog[] }) {
         </Link>
       </nav>
       <h1 className="home-title">#{slug}</h1>
-      <p className="mb-7">It is what it is all about</p>
+      <p className="font-raleway mb-7">{description}</p>
       {posts && posts.length > 0 ? (
         <Post posts={posts} showTags={false} />
       ) : (

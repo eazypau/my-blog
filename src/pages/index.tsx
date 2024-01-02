@@ -1,9 +1,8 @@
 // component
 import Post from "@/components/Post";
-// fonts
-import { Inter } from "next/font/google";
 // lib
 import { Blog, getAllPublished } from "@/lib/notion";
+import Head from "next/head";
 
 export const getStaticProps = async () => {
   const data = await getAllPublished();
@@ -15,17 +14,39 @@ export const getStaticProps = async () => {
   };
 };
 
-const inter = Inter({ subsets: ["latin"] });
-
 export default function Home({ posts }: { posts: Blog[] }) {
   return (
-    <main className={`blog-page-container ${inter.className}`}>
-      <h1 className="home-title">Blog Overview</h1>
-      <p className="mb-7">
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quae tenetur
-        suscipit officiis nesciunt odit. Alias eaque tenetur ut repellendus
-        repudiandae soluta, distinctio maxime pariatur atque sapiente libero.
-        Omnis, consequuntur aut?
+    <main className="blog-page-container">
+      <Head>
+        <title>My Journey As A Web Developer | Eazypau</title>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+        />
+        <meta
+          name="description"
+          content="Personal Blog Website. I'm a Software Developer based in Kuala Lumpur, Malaysia. Currently focused on developing website using Vue and React. Checkout my blog posts for some cool stories!"
+        />
+        <meta name="author" content="Po Yi Zhi" />
+        <link rel="shortcut icon" href="favicon-bw.png" type="image/x-icon" />
+        <meta name="og:site" content="https://my-blog-eazypau.vercel.app/" />
+        <meta
+          name="og:site_name"
+          content="My Journey As A Software Developer | Eazypau"
+        />
+        <meta
+          name="og:title"
+          content="My Journey As A Software Developer | Eazypau"
+        />
+        <meta
+          name="og:description"
+          content="Personal Blog Website. I'm a Software Developer based in Kuala Lumpur, Malaysia. Currently focused on developing website using Vue and React. Checkout my blog posts for some cool stories!"
+        />
+      </Head>
+      <h1 className="home-title">My Journey As A Software Developer</h1>
+      <p className="font-raleway mb-7">
+        Bits and pieces that I picked up as I journey through in my career as a
+        software developer, including my life outside of work.
       </p>
       {posts && posts.length > 0 ? (
         <Post posts={posts} />
