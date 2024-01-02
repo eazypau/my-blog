@@ -34,7 +34,7 @@ export default function Post({
         <div className="date-link-container">
           <p>{formatDate(post.date)}</p>
           <Link href={`/blog/${post.slug}`} className="read-more-button">
-            Read more <RightArrow width="20" height="20" />
+            Read Post <RightArrow width="20" height="20" />
           </Link>
         </div>
       </li>
