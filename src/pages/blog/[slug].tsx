@@ -80,7 +80,7 @@ export default function Slug({
           </Link>
         </nav>
         <article className="blog-details">
-          <h1 className="blog-heading-1">{page.title}</h1>
+          <h1>{page.title}</h1>
           <p className="description">{page.description}</p>
           <p className="author-date-container">
             <span>by Po Yi Zhi</span> |{" "}
