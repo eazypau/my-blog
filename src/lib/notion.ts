@@ -64,20 +64,19 @@ export const getAllPublished = async () => {
 export const getPageBlocks = async (pageId: string) => {
   const response = await notion.blocks.children.list({ block_id: pageId });
 
+  const createList = (type: string): BlogList => ({
+    id: Math.floor(Math.random() * 100000).toString(),
+    type: type,
+    children: [],
+  });
+
   if (response.results.length > 0) {
     const results = response.results as any[];
     const bulletedListItemIndex: number[] = [];
-    const bulletedList: BlogList = {
-      id: Math.floor(Math.random() * 100000).toString(),
-      type: "bulleted_list",
-      children: [],
-    };
+    const bulletedList = createList("bulleted_list");
     const numberedListItemIndex: number[] = [];
-    const numberedList: BlogList = {
-      id: Math.floor(Math.random() * 100000).toString(),
-      type: "numbered_list",
-      children: [],
-    };
+    const numberedList = createList("numbered_list");
+
     results.forEach((block, index) => {
       if (block.type === "bulleted_list_item") {
         bulletedListItemIndex.push(index);
@@ -89,24 +88,13 @@ export const getPageBlocks = async (pageId: string) => {
       }
     });
 
-    if (bulletedListItemIndex.length) {
-      bulletedListItemIndex.forEach((itemIndex, index) => {
-        if (index === 0) {
-          results[itemIndex] = bulletedList;
-        } else {
-          results[itemIndex] = {};
-        }
-      });
-    }
-    if (numberedListItemIndex.length) {
-      numberedListItemIndex.forEach((itemIndex, index) => {
-        if (index === 0) {
-          results[itemIndex] = numberedList;
-        } else {
-          results[itemIndex] = {};
-        }
-      });
-    }
+    bulletedListItemIndex.forEach((itemIndex, index) => {
+      results[itemIndex] = index === 0 ? bulletedList : {};
+    });
+
+    numberedListItemIndex.forEach((itemIndex, index) => {
+      results[itemIndex] = index === 0 ? numberedList : {};
+    });
 
     // https://stackoverflow.com/questions/33884033/how-can-i-remove-empty-object-in-from-an-array-in-js
     return results.filter((value) => Object.keys(value).length !== 0);
