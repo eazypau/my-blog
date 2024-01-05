@@ -1,4 +1,5 @@
 import { Client } from "@notionhq/client";
+import { BlockObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 
 export interface Blog {
   id: string;
@@ -9,11 +10,11 @@ export interface Blog {
   slug: string;
 }
 
-interface BlogList {
-  id: string;
-  type: string;
-  children: any[];
-}
+// interface BlogList {
+//   id: string;
+//   type: string;
+//   children: any[];
+// }
 
 const notion = new Client({
   auth: process.env.NOTION_TOKEN,
@@ -64,40 +65,74 @@ export const getAllPublished = async () => {
 export const getPageBlocks = async (pageId: string) => {
   const response = await notion.blocks.children.list({ block_id: pageId });
 
-  const createList = (type: string): BlogList => ({
-    id: Math.floor(Math.random() * 100000).toString(),
-    type: type,
-    children: [],
-  });
+  // const createList = (type: string): BlogList => ({
+  //   id: Math.floor(Math.random() * 100000).toString(),
+  //   type: type,
+  //   children: [],
+  // });
 
   if (response.results.length > 0) {
-    const results = response.results as any[];
-    const bulletedListItemIndex: number[] = [];
-    const bulletedList = createList("bulleted_list");
-    const numberedListItemIndex: number[] = [];
-    const numberedList = createList("numbered_list");
+    const results = response.results.reduce(
+      (initialResult: any, currentResult) => {
+        const item = currentResult as BlockObjectResponse;
+        if (item.type === "bulleted_list_item") {
+          if (
+            initialResult[initialResult.length - 1].type === "bulleted_list"
+          ) {
+            initialResult[initialResult.length - 1].children.push(item);
+          } else {
+            initialResult.push({
+              id: Math.floor(Math.random() * 100000).toString(),
+              type: "bulleted_list",
+              children: [item],
+            });
+          }
+        } else if (item.type === "numbered_list_item") {
+          if (
+            initialResult[initialResult.length - 1].type === "numbered_list"
+          ) {
+            initialResult[initialResult.length - 1].children.push(item);
+          } else {
+            initialResult.push({
+              id: Math.floor(Math.random() * 100000).toString(),
+              type: "numbered_list",
+              children: [item],
+            });
+          }
+        } else initialResult.push(item);
 
-    results.forEach((block, index) => {
-      if (block.type === "bulleted_list_item") {
-        bulletedListItemIndex.push(index);
-        bulletedList.children.push(block);
-      }
-      if (block.type === "numbered_list_item") {
-        numberedListItemIndex.push(index);
-        numberedList.children.push(block);
-      }
-    });
+        return initialResult;
+      },
+      []
+    );
 
-    bulletedListItemIndex.forEach((itemIndex, index) => {
-      results[itemIndex] = index === 0 ? bulletedList : {};
-    });
+    return results;
+    // const bulletedListItemIndex: number[] = [];
+    // const bulletedList = createList("bulleted_list");
+    // const numberedListItemIndex: number[] = [];
+    // const numberedList = createList("numbered_list");
 
-    numberedListItemIndex.forEach((itemIndex, index) => {
-      results[itemIndex] = index === 0 ? numberedList : {};
-    });
+    // results.forEach((block, index) => {
+    //   if (block.type === "bulleted_list_item") {
+    //     bulletedListItemIndex.push(index);
+    //     bulletedList.children.push(block);
+    //   }
+    //   if (block.type === "numbered_list_item") {
+    //     numberedListItemIndex.push(index);
+    //     numberedList.children.push(block);
+    //   }
+    // });
 
-    // https://stackoverflow.com/questions/33884033/how-can-i-remove-empty-object-in-from-an-array-in-js
-    return results.filter((value) => Object.keys(value).length !== 0);
+    // bulletedListItemIndex.forEach((itemIndex, index) => {
+    //   results[itemIndex] = index === 0 ? bulletedList : {};
+    // });
+
+    // numberedListItemIndex.forEach((itemIndex, index) => {
+    //   results[itemIndex] = index === 0 ? numberedList : {};
+    // });
+
+    // // https://stackoverflow.com/questions/33884033/how-can-i-remove-empty-object-in-from-an-array-in-js
+    // return results.filter((value) => Object.keys(value).length !== 0);
   }
   return [];
 };
