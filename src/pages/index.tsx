@@ -18,7 +18,7 @@ export default function Home({ posts }: { posts: Blog[] }) {
   return (
     <main className="blog-page-container">
       <Head>
-        <title>My Journey As A Web Developer | Eazypau</title>
+        <title>My Journey As A Software Developer | Eazypau</title>
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1.0, viewport-fit=cover"
@@ -45,8 +45,9 @@ export default function Home({ posts }: { posts: Blog[] }) {
       </Head>
       <h1 className="home-title">My Journey As A Software Developer</h1>
       <p className="font-raleway mb-7">
-        Bits and pieces that I picked up as I journey through in my career as a
-        software developer, including my life outside of work.
+        Hello there! My name is Po. Here I share bits and pieces I picked up as
+        I journey through in my career as a software developer, including my
+        life outside of work.
       </p>
       {posts && posts.length > 0 ? (
         <Post posts={posts} />
