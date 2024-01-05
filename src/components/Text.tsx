@@ -35,7 +35,7 @@ export default function Text({ values }: { values: any }) {
           rel="noreferrer noopener"
           className="resource-link"
         >
-          {block.href}
+          {block.plain_text ? block.plain_text : block.href}
         </a>
       );
     }
