@@ -50,7 +50,7 @@ export default function renderBlock({ block }: { block: any }) {
       );
     case "bulleted_list":
       return (
-        <ul key={id} className="list-disc list-inside">
+        <ul key={id} className="list-disc list-outside pl-7">
           {block.children.map((item: BulletedListItemBlockObjectResponse) => {
             return (
               <li key={item.id}>
@@ -62,7 +62,7 @@ export default function renderBlock({ block }: { block: any }) {
       );
     case "numbered_list":
       return (
-        <ol key={id} className="list-decimal list-inside">
+        <ol key={id} className="list-decimal list-outside pl-7">
           {block.children.map((item: NumberedListItemBlockObjectResponse) => {
             return (
               <li key={item.id}>
