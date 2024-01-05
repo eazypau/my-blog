@@ -1,5 +1,7 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
+// components
+import Footer from "@/components/Footer";
 // fonts
 import { Montserrat, Raleway } from "next/font/google";
 // vercel
@@ -20,6 +22,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <div className={`${raleway.variable} ${montserrat.variable}`}>
       <Component {...pageProps} />
       <SpeedInsights />
+      <Footer />
     </div>
   );
 }
