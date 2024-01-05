@@ -17,7 +17,9 @@ export default function Text({ values }: { values: any }) {
           key={block.plain_text}
           className={[
             bold ? "font-bold" : "",
-            code ? "text-red-500 bg-gray-200" : "text-gray-700",
+            code
+              ? "text-red-500 bg-gray-200 py-0.5 px-2 rounded"
+              : "text-gray-700",
             italic ? "italic" : "",
             strikethrough ? "line-through" : "",
             underline ? "underline" : "",
