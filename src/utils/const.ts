@@ -1,10 +1,14 @@
-export const TAG_LIST = ["test"];
+export const TAG_LIST = ["webdev", "test"];
 
 export const TAGS_DESCRIPTION: {
   [key: string]: { description: string; fullName: string };
 } = {
-  test: {
+  webdev: {
     fullName: "Web Development",
-    description: "It is what it is all about.",
+    description: "Everything comes from the web 🕸️",
+  },
+  test: {
+    fullName: "test",
+    description: "Everything comes from the web 🕸️",
   },
 };
