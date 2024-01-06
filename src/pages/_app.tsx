@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import { Montserrat, Raleway } from "next/font/google";
 // vercel
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react";
 
 const raleway = Raleway({
   subsets: ["latin"],
@@ -22,6 +23,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <div className={`${raleway.variable} ${montserrat.variable}`}>
       <Component {...pageProps} />
       <SpeedInsights />
+      <Analytics />
       <Footer />
     </div>
   );
