@@ -5,6 +5,9 @@ import {
   BulletedListItemBlockObjectResponse,
   NumberedListItemBlockObjectResponse,
 } from "@notionhq/client/build/src/api-endpoints";
+import hljs from "highlight.js/lib/core";
+import FsLightbox from "fslightbox-react";
+import { useState } from "react";
 
 /**
  * List of components to render
@@ -75,9 +78,15 @@ export default function renderBlock({ block }: { block: any }) {
     case "divider":
       return <hr key={id} />;
     case "code":
+      const highlightedCode = hljs.highlight(value.rich_text[0].plain_text, {
+        language: value.language,
+      }).value;
       return (
-        <pre key={id} className="code-block">
-          <code>{value.rich_text[0].plain_text}</code>
+        <pre key={id}>
+          <code
+            className="hljs rounded-md"
+            dangerouslySetInnerHTML={{ __html: highlightedCode }}
+          />
         </pre>
       );
     case "bookmark":
@@ -95,10 +104,20 @@ export default function renderBlock({ block }: { block: any }) {
       const src =
         value.type === "external" ? value.external.url : value.file?.url;
       const caption = value.caption.length ? value.caption[0].plain_text : "";
+      const [toggler, setToggler] = useState(false);
       return (
-        <figure key={id}>
-          <img src={src} alt={caption} loading="lazy" />
-        </figure>
+        <div key={id}>
+          <figure
+            className="cursor-pointer"
+            onClick={() => setToggler(!toggler)}
+          >
+            <img src={src} alt={caption} loading="lazy" />
+          </figure>
+          <FsLightbox
+            toggler={toggler}
+            sources={[<img key={src} src={src} alt={caption} loading="lazy" />]}
+          />
+        </div>
       );
     case "video":
       return <video key={id} src={block.external.url}></video>;

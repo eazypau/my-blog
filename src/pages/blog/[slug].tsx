@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
 // components
-import renderBlock from "@/components/renderer";
+import renderBlock from "@/components/Renderer";
 import { HomeIcon } from "@/components/icons/Home";
 // lib
 import {
