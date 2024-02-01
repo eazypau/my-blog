@@ -7,14 +7,14 @@ export default function Text({ values }: { values: any }) {
   }
   const textBlocks = values.rich_text as RichTextItemResponse[];
 
-  return textBlocks.map((block) => {
+  return textBlocks.map((block, index) => {
     const { bold, code, color, italic, strikethrough, underline } =
       block.annotations;
 
     if (!block.href) {
       return (
         <span
-          key={block.plain_text}
+          key={block.plain_text + index}
           className={[
             bold ? "font-bold" : "",
             code
