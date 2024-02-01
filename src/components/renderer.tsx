@@ -104,6 +104,7 @@ export default function renderBlock({ block }: { block: any }) {
       const src =
         value.type === "external" ? value.external.url : value.file?.url;
       const caption = value.caption.length ? value.caption[0].plain_text : "";
+      // eslint-disable-next-line react-hooks/rules-of-hooks
       const [toggler, setToggler] = useState(false);
       return (
         <div key={id}>
