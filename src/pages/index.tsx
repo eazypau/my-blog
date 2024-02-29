@@ -1,8 +1,9 @@
+import dynamic from "next/dynamic";
+import Head from "next/head";
 // component
-import Post from "@/components/Post";
+// import Post from "@/components/Post";
 // lib
 import { Blog, getAllPublished } from "@/lib/notion";
-import Head from "next/head";
 
 export const getStaticProps = async () => {
   const data = await getAllPublished();
@@ -13,6 +14,8 @@ export const getStaticProps = async () => {
     },
   };
 };
+
+const Post = dynamic(() => import("@/components/Post"));
 
 export default function Home({ posts }: { posts: Blog[] }) {
   return (

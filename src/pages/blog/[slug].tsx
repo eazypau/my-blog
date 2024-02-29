@@ -1,7 +1,8 @@
 import Head from "next/head";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 // components
-import renderBlock from "@/components/renderer";
+// import renderBlock from "@/components/renderer";
 import { HomeIcon } from "@/components/icons/Home";
 // lib
 import {
@@ -50,6 +51,8 @@ export const getStaticProps = async ({
   };
 };
 
+const RenderBlock = dynamic(() => import("@/components/renderer"));
+
 export default function Slug({
   page,
   blocks,
@@ -88,7 +91,9 @@ export default function Slug({
           </p>
         </article>
         <article className="block-content">
-          {blocks.map((block) => renderBlock({ block }))}
+          {blocks.map((block) => (
+            <RenderBlock key={block.id} block={block} />
+          ))}
         </article>
       </div>
     );

@@ -21,7 +21,7 @@ import { useState } from "react";
  * - quote
  * @returns Component
  */
-export default function renderBlock({ block }: { block: any }) {
+export default function RenderBlock({ block }: { block: any }) {
   const { type, id } = block;
 
   const value = block[type];

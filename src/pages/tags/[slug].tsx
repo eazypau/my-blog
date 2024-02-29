@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
 // components
-import Post from "@/components/Post";
+// import Post from "@/components/Post";
 import { HomeIcon } from "@/components/icons/Home";
 // lib
 import { Blog, getBlogsByTag } from "@/lib/notion";
@@ -38,6 +39,8 @@ export const getStaticProps = async ({
     },
   };
 };
+
+const Post = dynamic(() => import("@/components/Post"));
 
 export default function Tag({ posts }: { posts: Blog[] }) {
   const router = useRouter();
