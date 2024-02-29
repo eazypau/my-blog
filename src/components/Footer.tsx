@@ -15,7 +15,11 @@ export default function Footer() {
 
         <ul>
           <li className="w-5">
-            <a href="https://www.linkedin.com/in/yzpo/" target="_blank">
+            <a
+              href="https://www.linkedin.com/in/yzpo/"
+              aria-label="LinkedIn"
+              target="_blank"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 512 512"
@@ -26,7 +30,11 @@ export default function Footer() {
             </a>
           </li>
           <li className="w-5">
-            <a href="https://github.com/eazypau" target="_blank">
+            <a
+              href="https://github.com/eazypau"
+              aria-label="GitHub"
+              target="_blank"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 512 512"
