@@ -16,6 +16,16 @@ import { BlockObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 // utils
 import { formatDate } from "@/utils/dateFormatter";
 import { convertBlocksIntoSingleString } from "@/utils/convertBlocksIntoSingleString";
+import {
+  FacebookIcon,
+  FacebookShareButton,
+  LinkedinIcon,
+  LinkedinShareButton,
+  TwitterIcon,
+  TwitterShareButton,
+  WhatsappIcon,
+  WhatsappShareButton,
+} from "next-share";
 
 export const getStaticPaths = async () => {
   const database = await getAllPublished();
@@ -87,6 +97,37 @@ export default function Slug({
             </Link>
           </nav>
           <TextToSpeech text={blockStrings} />
+        </div>
+        <div className="fixed right-0 top-1/3 flex flex-col">
+          <LinkedinShareButton
+            url={`https://my-blog-eazypau.vercel.app/blog/${page.slug}`}
+            title={page.description}
+            blankTarget
+          >
+            <LinkedinIcon size={50} />
+          </LinkedinShareButton>
+          <WhatsappShareButton
+            url={`https://my-blog-eazypau.vercel.app/blog/${page.slug}`}
+            title={page.description}
+            blankTarget
+          >
+            <WhatsappIcon size={50} />
+          </WhatsappShareButton>
+          <TwitterShareButton
+            url={`https://my-blog-eazypau.vercel.app/blog/${page.slug}`}
+            title={page.description}
+            blankTarget
+          >
+            <TwitterIcon size={50} />
+          </TwitterShareButton>
+          <FacebookShareButton
+            url={`https://my-blog-eazypau.vercel.app/blog/${page.slug}`}
+            quote={page.description}
+            hashtag="#webdev#reactjs"
+            blankTarget
+          >
+            <FacebookIcon size={50} />
+          </FacebookShareButton>
         </div>
         <article className="blog-details">
           <h1>{page.title}</h1>
