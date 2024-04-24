@@ -2,6 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 // components
+import TextToSpeech from "@/components/TextToSpeech";
 // import renderBlock from "@/components/renderer";
 import { HomeIcon } from "@/components/icons/Home";
 // lib
@@ -14,6 +15,7 @@ import {
 import { BlockObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 // utils
 import { formatDate } from "@/utils/dateFormatter";
+import { convertBlocksIntoSingleString } from "@/utils/convertBlocksIntoSingleString";
 
 export const getStaticPaths = async () => {
   const database = await getAllPublished();
@@ -61,6 +63,7 @@ export default function Slug({
   blocks: BlockObjectResponse[];
 }) {
   if (page && blocks) {
+    const blockStrings = convertBlocksIntoSingleString(blocks);
     return (
       <div className="blog-wrapper">
         <Head>
@@ -74,14 +77,17 @@ export default function Slug({
           <meta name="og:title" content={`#${page.title} | Eazypau`} />
           <meta name="og:description" content={page.description} />
         </Head>
-        <nav>
-          <Link
-            href="/"
-            className="p-2 bg-gradient-to-br from-white to-slate-100 rounded-md shadow"
-          >
-            <HomeIcon width="28" height="28" />
-          </Link>
-        </nav>
+        <div className="nav-row">
+          <nav>
+            <Link
+              href="/"
+              className="p-2 bg-gradient-to-br from-white to-slate-100 rounded-md shadow"
+            >
+              <HomeIcon width="28" height="28" />
+            </Link>
+          </nav>
+          <TextToSpeech text={blockStrings} />
+        </div>
         <article className="blog-details">
           <h1>{page.title}</h1>
           <p className="description">{page.description}</p>

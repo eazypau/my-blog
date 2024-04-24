@@ -84,8 +84,11 @@ footer ul {
   @apply mx-auto mb-3 md:w-3/4 xl:w-7/12 2xl:w-1/2 py-5 md:py-10 px-3 md:px-7 bg-white;
 }
 
-nav {
-  @apply flex mb-3;
+.nav-row {
+  @apply flex justify-between items-end mb-3;
+}
+.nav-row nav {
+  @apply flex;
 }
 
 .blog-details {
