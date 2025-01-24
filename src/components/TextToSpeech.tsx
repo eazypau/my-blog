@@ -14,8 +14,6 @@ export default function TextToSpeech({ text }: { text: string }) {
     const estDuration = totalWords / 150;
     const voices = synth.getVoices();
 
-    console.log(voices);
-
     // set default settings
     u.voice = voices[0];
     u.pitch = 1;
