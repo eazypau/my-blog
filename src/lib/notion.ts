@@ -223,16 +223,19 @@ export const getBlogsByTag = async (tag?: string) => {
     // });
 
     // return response.results.map((item) => getBlogDetails(item));
+    console.log(tag);
 
     // v5
     const response = await notion.dataSources.query({
       data_source_id: process.env.NOTION_DATA_SOURCE_ID,
       filter: {
-        property: "Tags",
-        multi_select: {
-          contains: tag,
-        },
         and: [
+          {
+            property: "Tags",
+            multi_select: {
+              contains: tag,
+            },
+          },
           {
             property: "Status",
             status: {
