@@ -9,23 +9,23 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@notionhq/client": "^2.2.14",
+    "@notionhq/client": "^5.0.0",
     "@types/fslightbox-react": "^1.7.7",
     "@vercel/analytics": "^1.1.1",
     "@vercel/speed-insights": "^1.0.2",
     "feed": "^4.2.2",
     "fslightbox-react": "^1.7.6",
     "highlight.js": "^11.9.0",
-    "next": "^14.0.4",
+    "next": "^15.0.0",
     "next-share": "^0.27.0",
-    "react": "^18",
-    "react-dom": "^18"
+    "react": "^19",
+    "react-dom": "^19"
   },
   "devDependencies": {
     "@types/highlightjs": "^9.12.6",
     "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
     "autoprefixer": "^10.0.1",
     "eslint": "^9",
     "eslint-config-next": "^15",
