@@ -37,8 +37,28 @@ const getBlogDetails = (post: any): Blog => {
 
 export const getAllPublished = async () => {
   try {
-    const response = await notion.databases.query({
-      database_id: process.env.NOTION_DATABASE_ID,
+    // v2
+    // const response = await notion.dataSources.query({
+    //   data_source_id: process.env.NOTION_DATABASE_ID,
+    //   filter: {
+    //     property: "Status",
+    //     status: {
+    //       equals: "Published",
+    //     },
+    //   },
+    //   sorts: [
+    //     {
+    //       property: "Date",
+    //       direction: "descending",
+    //     },
+    //   ],
+    // });
+
+    // return response.results.map((item) => getBlogDetails(item));
+
+    // v5
+    const response = await notion.dataSources.query({
+      data_source_id: process.env.NOTION_DATA_SOURCE_ID,
       filter: {
         property: "Status",
         status: {
@@ -138,8 +158,22 @@ export const getPageBlocks = async (pageId: string) => {
 };
 
 export const getBlogPageBySlug = async (slug: string): Promise<Blog | {}> => {
-  const response = await notion.databases.query({
-    database_id: process.env.NOTION_DATABASE_ID,
+  // v2
+  // const response = await notion.databases.query({
+  //   database_id: process.env.NOTION_DATABASE_ID,
+  //   filter: {
+  //     property: "Slug",
+  //     formula: {
+  //       string: {
+  //         equals: slug,
+  //       },
+  //     },
+  //   },
+  // });
+
+  // v5
+  const response = await notion.dataSources.query({
+    data_source_id: process.env.NOTION_DATA_SOURCE_ID,
     filter: {
       property: "Slug",
       formula: {
@@ -163,8 +197,36 @@ export const getBlogsByTag = async (tag?: string) => {
       return [];
     }
 
-    const response = await notion.databases.query({
-      database_id: process.env.NOTION_DATABASE_ID,
+    // v2
+    // const response = await notion.databases.query({
+    //   database_id: process.env.NOTION_DATABASE_ID,
+    //   filter: {
+    //     property: "Tags",
+    //     multi_select: {
+    //       contains: tag,
+    //     },
+    //     and: [
+    //       {
+    //         property: "Status",
+    //         status: {
+    //           equals: "Published",
+    //         },
+    //       },
+    //     ],
+    //   },
+    //   sorts: [
+    //     {
+    //       property: "Date",
+    //       direction: "descending",
+    //     },
+    //   ],
+    // });
+
+    // return response.results.map((item) => getBlogDetails(item));
+
+    // v5
+    const response = await notion.dataSources.query({
+      data_source_id: process.env.NOTION_DATA_SOURCE_ID,
       filter: {
         property: "Tags",
         multi_select: {

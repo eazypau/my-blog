@@ -63,14 +63,16 @@ export default function Tag({ posts }: { posts: Blog[] }) {
         <meta name="og:title" content={`#${fullTitle} | Eazypau`} />
         <meta name="og:description" content={description} />
       </Head>
-      <nav>
-        <Link
-          href="/"
-          className="p-2 bg-gradient-to-br from-white to-slate-100 rounded-md shadow"
-        >
-          <HomeIcon width="28" height="28" />
-        </Link>
-      </nav>
+      <div className="nav-row">
+        <nav>
+          <Link
+            href="/"
+            className="p-2 bg-gradient-to-br from-white to-slate-100 rounded-md shadow"
+          >
+            <HomeIcon width="28" height="28" />
+          </Link>
+        </nav>
+      </div>
       <h1 className="home-title">{fullTitle}</h1>
       <p className="font-raleway mb-7">{description}</p>
       {posts && posts.length > 0 ? (

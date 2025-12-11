@@ -11,4 +11,9 @@ export const TAGS_DESCRIPTION: {
     fullName: "test",
     description: "Everything comes from the web 🕸️",
   },
+  career: {
+    fullName: "Career",
+    description:
+      "Builds software through teamwork, communication, and continuous learning.",
+  },
 };
